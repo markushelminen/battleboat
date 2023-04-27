@@ -1,0 +1,48 @@
+<input
+  type="checkbox"
+  class="form-control"
+  id="vertical"
+  [(ngModel)]="vertical"
+  name="vertical"
+/>
+<div
+  #playergrid
+  *ngIf="grid.player; else computerTemplate"
+  class="grid grid-cols-10 border border-sky-900 p-4"
+>
+  <div
+    class="p-2"
+    (click)="addBoat(cell)"
+    [ngClass]="{
+      'bg-red-200': cell.hover && !cell.boat,
+      'bg-gray-50': !cell.clicked && !cell.boat,
+      'bg-red-400': cell.boat,
+      'bg-gray-900': cell.clicked,
+      crossed: cell.clicked && cell.boat
+    }"
+    (mouseenter)="showBoat(cell)"
+    (mouseleave)="hideBoat(cell)"
+    *ngFor="let cell of grid.grid"
+  >
+    c: {{ cell.clicked }} b: {{ cell.boat }}
+    <div class="font-bold">{{ cell.number }}</div>
+  </div>
+</div>
+
+<ng-template #computerTemplate>
+  <div #computergrid class="grid grid-cols-10 border border-sky-900 p-4">
+    <div
+      class="p-2"
+      [ngClass]="{
+        'bg-white': !cell.clicked,
+        'bg-gray-900': cell.clicked,
+        crossed: cell.clicked && cell.boat
+      }"
+      (click)="fire(cell)"
+      *ngFor="let cell of grid.grid"
+    >
+      c: {{ cell.clicked }} b: {{ cell.boat }}
+      <div class="font-bold">{{ cell.number }}</div>
+    </div>
+  </div>
+</ng-template>
