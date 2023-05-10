@@ -2,12 +2,41 @@
   <h1>Battle Boat</h1>
   <p>a thesis by Markus Helminen</p>
 </header>
+<div class="flex justify-evenly">
+  <label for="vertical">Vertical</label>
+  <input
+    type="checkbox"
+    class="form-control"
+    id="vertical"
+    [(ngModel)]="vertical"
+    name="vertical"
+  />
 
-
-
-<div class="gameboard border border-purple-700 p-4 flex flex-wrap justify-center">
+  <button
+    *ngIf="!started"
+    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+    type="button"
+    (click)="start()"
+  >
+    Start
+  </button>
+  <button
+    *ngIf="started"
+    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    type="button"
+    (click)="reset()"
+  >
+    Reset
+  </button>
+</div>
+<div class="p-4 flex flex-wrap justify-center">
   Your fleet
-  <app-gamegrid [grid]="playerGrid" [boats]="boats"></app-gamegrid>
+  <app-gamegrid
+    [vertical]="vertical"
+    [playerGrid]="playerGrid"
+    [boats]="playerBoats"
+    [computerGrid]="computerGrid"
+    [started]="started"
+  ></app-gamegrid>
   Enemy fleet
-  <app-gamegrid [grid]="computerGrid"></app-gamegrid>
 </div>
