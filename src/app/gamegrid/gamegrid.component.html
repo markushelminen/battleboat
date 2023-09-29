@@ -8,8 +8,8 @@
         'bg-red-200': cell.hover && !cell.boat,
         'bg-gray-50': !cell.clicked && !cell.boat,
         'bg-red-400': cell.boat,
-        'bg-gray-900': cell.clicked,
-        crossed: cell.clicked && cell.boat
+        'bg-gray-600': cell.clicked,
+        'crossed': cell.clicked && cell.boat
       }"
       (mouseenter)="showBoat(cell)"
       (mouseleave)="hideBoat(cell)"
@@ -25,7 +25,7 @@
       class="p-2 text-xs"
       [ngClass]="{
         'bg-white': !cell.clicked,
-        'bg-gray-900': cell.clicked,
+        'bg-gray-600': cell.clicked,
         crossed: cell.clicked && cell.boat
       }"
       (click)="fire(cell)"

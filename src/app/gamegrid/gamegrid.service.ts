@@ -2,6 +2,10 @@ import { Boat, Cell, boats } from '../app.component';
 
 export class GamegridService {
   enemyGrid: Cell[] = [];
+  boatFinderInfo = {
+    orientation: undefined,
+    counter: 4,
+  };
   getEnemyFleet() {
     this.enemyGrid = [];
     for (let i = 0; i < 100; i++) {
@@ -77,6 +81,84 @@ export class GamegridService {
     }
     return randomCellNumber;
   }
+
+  computerCellToShoot(
+    grid: Cell[],
+    shotsLanded: number,
+    lastShotCell: number,
+    orientationCounter: number
+  ) {
+    console.log(
+      `shots landed: ${shotsLanded}, last shot shell: ${lastShotCell}, orientation counter: ${orientationCounter}`
+    );
+    let cellToShoot: number = 0;
+    let shotValid = false;
+    if (shotsLanded > 0 || orientationCounter !== 0) {
+      switch (orientationCounter) {
+        case 1:
+          if (
+            grid[lastShotCell - 10] &&
+            grid[lastShotCell - 10].clicked === false
+          ) {
+            cellToShoot = lastShotCell - 10;
+          } else {
+            console.log('next option, orientation: ' + orientationCounter);
+            this.computerCellToShoot(grid, shotsLanded, lastShotCell, 2);
+          }
+          break;
+        case 2:
+          if (
+            grid[lastShotCell + 10] &&
+            grid[lastShotCell + 10].clicked === false
+          ) {
+            cellToShoot = lastShotCell + 10;
+          } else {
+            console.log('next option, orientation: ' + orientationCounter);
+            this.computerCellToShoot(grid, shotsLanded, lastShotCell, 3);
+          }
+          break;
+        case 3:
+          if (
+            grid[lastShotCell - 1] &&
+            grid[lastShotCell - 1].clicked === false
+          ) {
+            cellToShoot = lastShotCell - 1;
+          } else {
+            console.log('next option, orientation: ' + orientationCounter);
+            this.computerCellToShoot(grid, shotsLanded, lastShotCell, 4);
+          }
+          break;
+        case 4:
+          if (
+            grid[lastShotCell + 1] &&
+            grid[lastShotCell + 1].clicked === false
+          ) {
+            cellToShoot = lastShotCell + 1;
+          } else {
+            console.log('Reset, orientation: ' + orientationCounter);
+            this.computerCellToShoot(grid, 0, lastShotCell, 0);
+          }
+          break;
+        default:
+          this.computerCellToShoot(grid, 0, lastShotCell, 0);
+          break;
+      }
+    } else {
+      while (!shotValid) {
+        console.log('in the loop');
+
+        cellToShoot = this.randomIntFromInterval(0, 99);
+
+        if (cellToShoot % 2 === 0) cellToShoot + 1;
+        if (grid[cellToShoot].clicked === false) {
+          shotValid = true;
+        }
+      }
+    }
+    console.log(cellToShoot);
+    return cellToShoot;
+  }
+
   randomIntFromInterval(min: number, max: number) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }

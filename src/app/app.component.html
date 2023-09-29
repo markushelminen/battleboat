@@ -1,42 +1,51 @@
-<header class="text-center">
-  <h1>Battle Boat</h1>
-  <p>a thesis by Markus Helminen</p>
-</header>
-<div class="flex justify-evenly">
-  <label for="vertical">Vertical</label>
-  <input
-    type="checkbox"
-    class="form-control"
-    id="vertical"
-    [(ngModel)]="vertical"
-    name="vertical"
-  />
+<div class="flex flex-col bg-red-300 h-screen">
+  <header class="text-center">
+    <h1 class="text-2xl text-gray-900 p-2">Battle Boat</h1>
+    <i class="text-gray-900 p-1">a thesis by Markus Helminen</i>
+  </header>
+  <div class="flex justify-evenly items-center">
+    <div class="flex">
+      <label class="" for="vertical">Vertical</label>
+      <div class="p-1"></div>
+      <input type="checkbox" [(ngModel)]="vertical" name="vertical" />
+    </div>
 
-  <button
-    *ngIf="!started"
-    class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-    type="button"
-    (click)="start()"
-  >
-    Start
-  </button>
-  <button
-    *ngIf="started"
-    class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
-    type="button"
-    (click)="reset()"
-  >
-    Reset
-  </button>
-</div>
-<div class="p-4 flex flex-wrap justify-center">
-  Your fleet
-  <app-gamegrid
-    [vertical]="vertical"
-    [playerGrid]="playerGrid"
-    [boats]="playerBoats"
-    [computerGrid]="computerGrid"
-    [started]="started"
-  ></app-gamegrid>
-  Enemy fleet
+    <p>{{ started ? "Shoot the enemy boats!" : "Place your boats!" }}</p>
+
+    <button
+      *ngIf="!started"
+      [ngClass]="{
+        'bg-blue-300 hover:bg-blue-300': !canStart,
+        'text-gray-100': !canStart
+      }"
+      [disabled]="!canStart"
+      class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+      type="button"
+      (click)="start()"
+    >
+      Start
+    </button>
+    <button
+      *ngIf="started"
+      class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+      type="button"
+      (click)="reset()"
+    >
+      Reset
+    </button>
+  </div>
+  <div class="p-4 flex flex-wrap justify-center">
+    Your fleet
+    <app-gamegrid
+      [vertical]="vertical"
+      [playerGrid]="playerGrid"
+      [boats]="playerBoats"
+      [computerGrid]="computerGrid"
+      [started]="started"
+      [boatCounter]="boatCounter"
+      (canStart)="onCanStart($event)"
+      (winnner)="endGame($event)"
+    ></app-gamegrid>
+    Enemy fleet
+  </div>
 </div>

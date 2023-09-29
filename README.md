@@ -25,3 +25,9 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+## TODO
+
+- when landing a shot in the top row going through all the neighboring cells is not working correctly. At the moment for example the bot shoots 9 and then jumps to 0
+- I think the bot only places boats vertically
+- check when misfiring on the first shot that next shot is neighboring cell for the original landed shot
