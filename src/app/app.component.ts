@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { GamegridService } from './gamegrid/gamegrid.service';
+import { GamegridComponent } from './gamegrid/gamegrid.component';
 
 export type Cell = {
   clicked: boolean;
@@ -47,19 +48,18 @@ export const boats: Boat[] = [
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit {
+  @ViewChild(GamegridComponent) gamegrid!: GamegridComponent;
   vertical = false;
   playerBoats = boats;
   playerGrid: Cell[] = [];
   computerGrid: Cell[] = [];
   started = false;
   canStart = false;
-  boatCounter = 0;
 
   constructor(private gameService: GamegridService) {}
 
   ngOnInit(): void {
     this.initialiseGrids();
-    this.boatCounter = this.playerBoats.length - 1;
   }
 
   initialiseGrids() {
@@ -89,7 +89,7 @@ export class AppComponent implements OnInit {
     this.started = false;
     this.initialiseGrids();
     this.canStart = false;
-    this.boatCounter = this.playerBoats.length - 1;
+    this.gamegrid.reset();
   }
 
   onCanStart(canStart: boolean) {
@@ -97,6 +97,6 @@ export class AppComponent implements OnInit {
   }
 
   endGame(winner: number) {
-    console.log(winner === 1 ? 'Player won' : 'Computer Won');
+    alert(winner === 1 ? 'Player won' : 'Computer Won');
   }
 }

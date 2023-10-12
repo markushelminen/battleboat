@@ -28,6 +28,10 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 
 ## TODO
 
-- when landing a shot in the top row going through all the neighboring cells is not working correctly. At the moment for example the bot shoots 9 and then jumps to 0
-- I think the bot only places boats vertically
-- check when misfiring on the first shot that next shot is neighboring cell for the original landed shot
+- Bot only check boats through one direction. Need to add somekind of memory of the first landed shot and check the other side when missing. Also could have a max number of shots landed thing for the max length of a boat. Could be problematic with neighboring boats.
+- If I have time I should track boats being destroyed
+- Is there a possibility to get one square to a place which cannot be shot by the bot?
+- Headings are in the wrong place
+- When the bot wins it doesn't stop
+- Orientation counter doesn't reset like it should.
+  Refactor shooting to do a max 3 misses approach when hitting a boat
