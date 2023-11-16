@@ -71,8 +71,6 @@ export class GamegridComponent implements OnInit {
     this.computerFiredShots.push(firedCellNumber);
   }
   addBoat(cell: Cell): void {
-    console.log(this.started);
-    console.log(this.boatCounter);
     if (this.started) return;
     if (this.boatCounter === -1) return;
     if (cell.boat) return;

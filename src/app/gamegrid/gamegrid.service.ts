@@ -14,7 +14,6 @@ export class GamegridService {
     }
 
     for (let i = 0; i < boats.length; i++) {
-      console.log(boats[boats.length - 1 - i].name);
       this.placeBoat(boats[boats.length - 1 - i]);
     }
 
@@ -23,9 +22,7 @@ export class GamegridService {
 
   placeBoat(boat: Boat) {
     boat.vertical = Math.random() > 0.5 ? true : false;
-    console.log(boat.vertical);
     const cellNumber = this.randomCell(boat);
-    console.log(cellNumber);
 
     if (boat.vertical) {
       for (let i = 0; i < boat.size; i++) {
@@ -53,13 +50,11 @@ export class GamegridService {
                 break;
               }
             }
-            console.log(j);
           }
         }
       } else {
         if (randomCellNumber + boat.size - 1 <= 99) {
           if ((randomCellNumber + boat.size - 1) % 10 > boat.size) {
-            // if (randomCellNumber % 10 < 10 - boat.size) {
             for (let k = 0; k < boat.size; k++) {
               if (this.enemyGrid[randomCellNumber + k].boat === false) {
                 illegalPlacement = false;
@@ -67,8 +62,6 @@ export class GamegridService {
                 illegalPlacement = true;
                 break;
               }
-              console.log(k);
-              // }
             }
           }
         }
